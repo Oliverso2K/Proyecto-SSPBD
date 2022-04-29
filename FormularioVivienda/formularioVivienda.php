@@ -1,10 +1,10 @@
-<!-- <?php
+<?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
 	$sql = "SELECT dirección FROM viviendas";
 	$consulta = pg_query($conexion,$sql);
     $fila = pg_fetch_array($consulta);
-?> -->
+?>
 
 <!DOCTYPE html>
 <html lang="en">
