@@ -1,9 +1,11 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
-	$sql = "SELECT dirección FROM viviendas";
+	$sql = "SELECT * FROM viviendas";
 	$consulta = pg_query($conexion,$sql);
-    $fila = pg_fetch_array($consulta);
+
+    $sql = "SELECT * FROM municipios";
+    $consulta2 = pg_query($conexion,$sql);
 ?>
 
 <!DOCTYPE html>
@@ -62,15 +64,22 @@
     <div class="contenedor">
         <section class="contFormulario">
             <h2>Agregar Vivienda </h2>
-            <form action="" method="">
+            <form action="insertar.php" method="POST">
+
                 <input type="text" name="dirección" placeholder="Dirección" class="input" required>
                 <input type="text" name="colonia" placeholder="Colonia" class="input" required>
-                <select name="municipio" class="input">
-                    <option value="Tlajomulco">Tlajomulco</option>
-                    <option value="Zapopan">Zapopan</option>
-                    <option value="Tonalá">Tonalá</option>
+                <select name="id_municipio" class="input">
+                    <?php
+                        while ($filaMunicipio = pg_fetch_array($consulta2)){
+                    ?>
+                    <option value="<?php echo $filaMunicipio['id']?>"> <?php echo $filaMunicipio['nombre']?> </option>
+                    <?php
+                        }
+                    ?>
                 </select>
+
                 <input type="submit" value="Registrar" class="botonRegistrar">
+           
             </form>
         </section>
 
@@ -101,36 +110,37 @@
                     </thead>
 
                     <!-- Contenido de las filas -->
-                    <tr>
-                        <th>1</th>
-                        <th>Camino del trebol</th>
-                        <th>Arvento</th>
-                        <th>Tlajomulco</th>
-                        <th></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-trash"></i></a></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-pencil"></i></a></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-eye"></i></a></th>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <th>3 reyes</th>
-                        <th>Cajititlán</th>
-                        <th>Tlajomulco</th>
-                        <th></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-trash"></i></a></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-pencil"></i></a></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-eye"></i></a></th>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <th>Cataluña 42</th>
-                        <th>Rancho de la Cruz</th>
-                        <th>Tonalá</th>
-                        <th></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-trash"></i></a></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-pencil"></i></a></th>
-                        <th> <a class="icons" href=""><i class="fa-solid fa-eye"></i></a></th>
-                    </tr>
+                    <tbody>
+                            <?php
+                                while ($fila = pg_fetch_array($consulta)){
+                            ?>
+                        <tr>
+                            <th><?php echo $fila['id']?></th>
+                            <th><?php echo $fila['dirección']?></th>
+                            <th><?php echo $fila['colonia']?></th>
+                            <?php $id_municipio = $fila['id_municipio'];
+                                $sql = "SELECT * FROM municipios WHERE id='$id_municipio'";
+                                $consulta_municipio = pg_query($conexion,$sql);
+                                $municipio = pg_fetch_array($consulta_municipio);
+                            ?>
+                            <th> <?php echo $municipio['nombre']?></th>
+                            <th></th>
+                            <th> <a class="icons" href="actualizar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-pencil"></i></a></th>
+                            <th> <a class="icons" href=""><i class="fa-solid fa-eye"></i></a></th>
+                            <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
+                        </tr>
+
+                        <?php
+                            }
+                        ?>
+
+                        <div class="overlay">
+                            <div class="popup">
+                            </div>
+                        </div>
+
+
+                    </tbody>
                 </table>
             </section>
         </section>
