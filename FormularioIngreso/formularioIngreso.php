@@ -1,10 +1,9 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
-	$sql = "SELECT * FROM personas";
+	$sql = "SELECT * FROM negocios";
 	$consulta = pg_query($conexion,$sql);
 
-    // Creo que la consulta2 no es necesaria para este formulario
     $sql = "SELECT * FROM municipios";
     $consulta2 = pg_query($conexion,$sql);
 ?>
@@ -17,8 +16,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="formPersonaStyles.css">
-    <title>Formulario Personas</title>
+    <link rel="stylesheet" href="formIngresoStyles.css">
+    <title>Formulario Ingresos</title>
 </head>
 
 <body>
@@ -58,71 +57,45 @@
     </header>
 
     <div class="titulo-ventana">
-        <h5> Soy censador > Censar > Individuo</h1>
-            <h2> CENSAR INVIDIVUO </h2>
+        <h5> Soy censador > Censar > Individuo > Ingresos</h1>
+            <h2> CENSAR INGRESOS </h2>
     </div>
+    <text class="registroNombre"> Registros de Ingresos de MARIANA JOCELYN LÓPEZ QUIROZ </text>
 
     <div class="contenedor">
         <section class="contFormulario">
-            <h2>Agregar Individuo </h2>
+            <h2>Agregar Ingreso </h2>
             <form action="insertar.php" method="POST">
-
-                <input type="text" name="nombres" placeholder="Nombre(s)" class="input" required>
-                <input type="text" name="apellidos" placeholder="Apellido(s)" class="input" required>
-                <input type="text" name="curp" placeholder="CURP" class="input" required>
-                <text>Fecha de nacimiento</text>
-                <input type="date" name="fecha_nacimiento" class="input" required>
-                
-                <text>Sexo</text>
-                <div class="selection"> 
-                    <input type="radio" name="genero" value="F">Femenino</input>
-                    <input type="radio" name="genero" value="M">Masculino</input>
-                    <input type="radio" name="genero" value="O">Otro</input>
-                </div>
-
-                <text>Estado Civil</text>
-                <select name="estado_civil" class="input" requeried>
-                    <option value="S">Soltero</option>
-                    <option value="C">Casado</option>
-                    <option value="U">Unión Libre</option>
-                    <option value="V">Viudo</option>
-
+                <input type="number" name="cantidad" min="1" placeholder="Cantidad" class="input" required>
+                <text>Fecha del ingreso</text>
+                <input type="date" name="fecha" class="input" required>
+                <text>Fuente de ingreso</text>
+                <select name="tipo" class="input" requeried>
+                    <option value="empleo">Empleo</option>
+                    <option value="donativo">Donativo</option>
+                    <option value="apoyo gobierno">Apoyo gubernamental</option>
                 </select>
-                <input type="number" name="id_vivienda" min="1" placeholder="ID de la vivienda" class="input" required>
-
-
-                <input type="submit" value="Registrar" class="botonRegistrar">
-           
+                <input type="text" name="razon_social" placeholder="Razón social" class="input" required>
             </form>
         </section>
 
         <section class="tabla">
-            <h2>Registros de Individuos </h2>
-
             <div class="buscar">
-                <input type="text" placeholder="Buscar por ID del individuo, nombre o CURP" requeried>
+                <input type="text" placeholder="Buscar por ID de ingreso, fecha o tipo de fuente" requeried>
                 <div class="btnBuscar">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
             </div>
-
             <section class="contTabla">
                 <table>
                     <!-- Para el encabezado de la tabla -->
                     <thead class="encabezados">
                         <tr>
                             <th>ID</th>
-                            <th>CURP</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Género</th>
-                            <th>Edad</th>
-                            <th>Estado civil</th>
-                            <th>ID vivienda</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th>Cantidad</th>
+                            <th>Fuente</th>
+                            <th>Fecha</th>
+                            <th></th><th></th><th></th>
                         </tr>
                     </thead>
 
@@ -130,18 +103,14 @@
                     <tbody>
                         <tr>
                             <th>1</th>
-                            <th>LOQM020819MJCPRRA3</th>
-                            <th>Mariana Jocelyn</th>
-                            <th>López Quiroz</th>
-                            <th>F</th>
-                            <th>19</th>
-                            <th>S</th>
-                            <th>1</th>
-                            <th> <a class="icons" href=""><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
-                            <th> <a class="icons" href=""><i class="fa-solid fa-cash-register"></i></a></th>
+                            <th>2000</th>
+                            <th>Empleo</th>
+                            <th>30-04-2022</th>
+                            <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-circle-question"></i></a></th>
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
+
                     </tbody>
                 </table>
             </section>
