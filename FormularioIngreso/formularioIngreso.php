@@ -76,6 +76,8 @@
                     <option value="apoyo gobierno">Apoyo gubernamental</option>
                 </select>
                 <input type="text" name="razon_social" placeholder="Razón social" class="input" required>
+                
+                <input type="submit" value="Registrar" class="botonRegistrar">
             </form>
         </section>
 
