@@ -255,9 +255,15 @@ footer{
 }
 
 /* Estilo del contenido de la tabla */
+.contTabla{
+    max-height: 550px;
+    overflow-y: scroll;
+    max-height: 330px;
+}
+
 .contTabla table{
     font-size: 15px;
-    width: 100%;
+    width: 99%;
     text-align: left;
     border-radius: 5px;
     border-collapse: collapse;
