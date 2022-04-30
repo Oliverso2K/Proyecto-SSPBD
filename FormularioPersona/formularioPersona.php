@@ -1,7 +1,7 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
-	$sql = "SELECT * FROM alumnos";
+	$sql = "SELECT * FROM personas";
 	$consulta = pg_query($conexion,$sql);
 
     // Creo que la consulta2 no es necesaria para este formulario
@@ -17,8 +17,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="formularioStyles.css">
-    <title>Formulario Vivienda</title>
+    <link rel="stylesheet" href="formPersonaStyles.css">
+    <title>Formulario Personas</title>
 </head>
 
 <body>
@@ -75,20 +75,20 @@
                 
                 <text>Sexo</text>
                 <div class="selection"> 
-                    <input type="radio" name="genero" value="femenino">Femenino</input>
-                    <input type="radio" name="genero" value="masculino">Masculino</input>
-                    <input type="radio" name="genero" value="otro">Otro</input>
+                    <input type="radio" name="genero" value="F">Femenino</input>
+                    <input type="radio" name="genero" value="M">Masculino</input>
+                    <input type="radio" name="genero" value="O">Otro</input>
                 </div>
 
                 <text>Estado Civil</text>
                 <select name="estado_civil" class="input" requeried>
-                    <option value="soltero">Soltero</option>
-                    <option value="casado">Casado</option>
-                    <option value="unión libre">Unión Libre</option>
-                    <option value="viudo">Viudo</option>
+                    <option value="S">Soltero</option>
+                    <option value="C">Casado</option>
+                    <option value="U">Unión Libre</option>
+                    <option value="V">Viudo</option>
 
                 </select>
-                <input type="number" name="id_vivienda" placeholder="ID de la vivienda" class="input" required>
+                <input type="number" name="id_vivienda" min="1" placeholder="ID de la vivienda" class="input" required>
 
 
                 <input type="submit" value="Registrar" class="botonRegistrar">
@@ -115,9 +115,9 @@
                             <th>CURP</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
-                            <th>Estado civil</th>
                             <th>Género</th>
                             <th>Edad</th>
+                            <th>Estado civil</th>
                             <th>ID vivienda</th>
                             <th></th>
                             <th></th>
@@ -128,29 +128,20 @@
 
                     <!-- Contenido de las filas -->
                     <tbody>
-                            <!-- <?php
-                                while ($fila = pg_fetch_array($consulta)){
-                            ?>
                         <tr>
-                            <th><?php echo $fila['id']?></th>
-                            <th><?php echo $fila['dirección']?></th>
-                            <th><?php echo $fila['colonia']?></th>
-                            <?php $id_municipio = $fila['id_municipio'];
-                                $sql = "SELECT * FROM municipios WHERE id='$id_municipio'";
-                                $consulta_municipio = pg_query($conexion,$sql);
-                                $municipio = pg_fetch_array($consulta_municipio);
-                            ?>
-                            <th> <?php echo $municipio['nombre']?></th>
-                            <th></th>
+                            <th>1</th>
+                            <th>LOQM020819MJCPRRA3</th>
+                            <th>Mariana Jocelyn</th>
+                            <th>López Quiroz</th>
+                            <th>F</th>
+                            <th>19</th>
+                            <th>S</th>
+                            <th>1</th>
+                            <th> <a class="icons" href=""><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
+                            <th> <a class="icons" href=""><i class="fa-solid fa-cash-register"></i></a></th>
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
-                            <!-- <th> <a class="icons" href="actualizar.php?id=<?php echo $fila['id'] ?>" id="btn-abrir-popup"><i class="fa-solid fa-pencil"></i></a></th> -->
-                            <th> <a class="icons" href=""><i class="fa-solid fa-eye"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
-
-                        <?php
-                            }
-                        ?> -->
                     </tbody>
                 </table>
             </section>

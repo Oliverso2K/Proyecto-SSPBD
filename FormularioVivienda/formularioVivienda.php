@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="formularioStyles.css">
+    <link rel="stylesheet" href="formViviendaStyles.css">
     <title>Formulario Vivienda</title>
 </head>
 
@@ -92,7 +92,6 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
             </div>
-
             <section class="contTabla">
                 <table>
                     <!-- Para el encabezado de la tabla -->
