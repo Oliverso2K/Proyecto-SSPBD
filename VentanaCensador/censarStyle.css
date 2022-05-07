@@ -1,0 +1,197 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Roboto:wght@100;300;400;500&display=swap');
+/*
+    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Lora', serif;
+*/
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+/*  ~~~~~ Header ~~~~~  */
+header{
+    display: flex;
+    flex-direction: column;
+    background-color: #14213D;
+    height: 120px;
+    justify-content: space-between;
+    padding-top: 0px;
+}
+
+.logo{
+    font-family: 'Cormorant Garamond', serif;
+    display: flex;
+    color: #EFEFEF;
+    align-items: center;
+    padding: 10px 0px;
+    padding-left: 30px;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.logo img{
+    height: 50px;
+    margin-right: 35px;
+}
+
+.menu{
+    background-color: #495368;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 40px;
+    text-align: center;
+}
+
+.menu ul, ol{
+    list-style: none;
+}
+
+.menu li{
+    list-style: none;
+    background-color: #495368;
+    display: block;
+}
+
+.menu a{
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    display: inline-block;
+    line-height: 1;
+    border-radius: 5px;
+}
+
+.menu > li{
+    float: left;
+}
+
+.menu li ul{
+    display: none;
+    position: absolute;
+    min-width: 100px;
+}
+
+.menu li:hover{
+    transition: all 0.2s linear;
+    background: rgb(108,120,146);
+}
+
+.menu li:hover > ul{
+    display:block;
+}
+
+.menu li ul li{
+    position: relative;
+}
+
+.menu li ul li ul{
+    right: -140px;
+    top: 0px;
+}
+
+/*  ~~~~~ Footer ~~~~~  */
+footer{
+    position: fixed;
+    top: 100;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    margin-top:15px;
+    background-color: #60697D;
+    padding: 0px 0px;
+}
+
+.contFooter {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 12px;
+    font-weight: 400;
+    color: white;
+}
+
+
+/*  ~~~~~ Título de la ventana (donde dice en qué ventana te localizas) ~~~~~  */
+.titulo-ventana{
+    display: flex;
+    height: 85px; /* No sé pq no me deja ponerle min-height*/
+    font-family: 'Cormorant Garamond', serif;
+    padding: 0px 20px;
+    box-shadow: 6px 10px 10px rgba(0,0,0,0.2);
+}
+
+.titulo-ventana h5{
+    color: #837D7D;
+    position:absolute;
+}
+
+.titulo-ventana h2{
+    margin-top: 50px;
+    padding-left: 90px;
+}
+
+/*  ~~~~~ Contenedor de los botones e imagen ~~~~~  */
+
+.contenedor{
+    padding: 0;
+    margin: 0;
+}
+
+.botones{
+    display: flex;
+    justify-content: center;
+    padding: 30px 10px;
+    height: 80px;
+}
+
+.botones a{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0px 50px;
+    text-decoration: none;
+    color: #FCA311;
+
+}
+
+.botones button{
+    margin-bottom: 10px;
+    margin-left: 60px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+}
+
+.botones button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.3s linear;
+}
+
+.contenedor img{
+    align-self: center;
+}
+
+.contenedor .imagen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #495368;
+}
+
+.contenedor .imagen img{
+    height: 400px;
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.3);
+    filter: blur(2px);
+
+}
