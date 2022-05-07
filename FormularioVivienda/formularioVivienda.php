@@ -123,10 +123,10 @@
                                 $municipio = pg_fetch_array($consulta_municipio);
                             ?>
                             <th> <?php echo $municipio['nombre']?></th>
-                            <th></th>
-                            <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
-                            <!-- <th> <a class="icons" href="actualizar.php?id=<?php echo $fila['id'] ?>" id="btn-abrir-popup"><i class="fa-solid fa-pencil"></i></a></th> -->
-                            <th> <a class="icons" href=""><i class="fa-solid fa-eye"></i></a></th>
+                            <th></ th>
+                            <!-- <th> <a class="icons editbtn" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th> -->
+                            <th> <a class="icons" href="actualizar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-pencil"></i></a></th>
+                            <th> <a class="icons" href="integrantes.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-eye"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
 
@@ -150,32 +150,6 @@
             </div>
         </div>
     </footer>
-
-    <div class="overlay" id="overlay">
-        <div class="popup" id="popup">
-            <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"> <i class="fas fa-times"> </i> </a>
-            <h3>Editar registro</h3>
-            
-            <form action="">
-                <div class="contInputs">
-                    <input type="text" placeholder="Dirección">
-                    <input type="text" placeholder="Colonia">
-                    <select name="id_municipio" class="input">
-                        <?php
-                            while ($filaMunicipio = pg_fetch_array($consulta2)){
-                        ?>
-                        <option value="<?php echo $filaMunicipio['id']?>"> <?php echo $filaMunicipio['nombre']?> </option>
-                        <?php
-                            }
-                        ?>
-                    </select>
-                </div>
-                <input type="submit" class="btn-submit" value="Actualizar">
-            </form>
-        </div>
-    </div>
-
-    <script src="popup.js"></script>
 
 </body>
 

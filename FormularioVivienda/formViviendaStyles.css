@@ -195,6 +195,11 @@ footer{
     font-weight: 500;
 }
 
+.botonRegistrar a{
+    text-decoration: none;
+    color: white;
+}
+
 .botonRegistrar:hover{
     background-color: rgba(108,120,146,0.9);
     transition: all 0.3s linear;
