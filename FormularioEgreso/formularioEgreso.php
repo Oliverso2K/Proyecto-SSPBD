@@ -52,7 +52,7 @@
                 </ul>
             </li>
             <li><a href="" class="">Negocios</a></li>
-            <li><a href="" class="">Soy censador</a></li>
+            <li><a href="../VentanaCensador/censar.php" class="">Soy censador</a></li>
         </ul>
     </header>
 

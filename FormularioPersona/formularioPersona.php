@@ -53,7 +53,7 @@
                 </ul>
             </li>
             <li><a href="" class="">Negocios</a></li>
-            <li><a href="" class="">Soy censador</a></li>
+            <li><a href="../VentanaCensador/censar.php" class="">Soy censador</a></li>
         </ul>
     </header>
 
@@ -137,8 +137,8 @@
                             <th>19</th>
                             <th>S</th>
                             <th>1</th>
-                            <th> <a class="icons" href=""><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
-                            <th> <a class="icons" href=""><i class="fa-solid fa-cash-register"></i></a></th>
+                            <th> <a class="icons" href="../FormularioIngreso/formularioIngreso.php"><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
+                            <th> <a class="icons" href="../FormularioEgreso/formularioEgreso.php"><i class="fa-solid fa-cash-register"></i></a></th>
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
