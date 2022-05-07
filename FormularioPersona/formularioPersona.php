@@ -116,7 +116,7 @@
                             <th>Nombres</th>
                             <th>Apellidos</th>
                             <th>Género</th>
-                            <th>Edad</th>
+                            <th>Fecha de nacimiento</th>
                             <th>Estado civil</th>
                             <th>ID vivienda</th>
                             <th></th>
@@ -128,20 +128,32 @@
 
                     <!-- Contenido de las filas -->
                     <tbody>
+                        <?php
+                            while ($fila = pg_fetch_array($consulta)){
+                        ?>
+
                         <tr>
-                            <th>1</th>
-                            <th>LOQM020819MJCPRRA3</th>
-                            <th>Mariana Jocelyn</th>
-                            <th>López Quiroz</th>
-                            <th>F</th>
-                            <th>19</th>
-                            <th>S</th>
-                            <th>1</th>
+                            <th><?php echo $fila['id']?></th>
+                            <th><?php echo $fila['curp']?></th>
+                            <th><?php echo $fila['nombres']?></th>
+                            <th><?php echo $fila['apellidos']?></th>
+                            <th><?php echo $fila['genero']?></th>
+                            <th><?php echo $fila['fecha_nacimiento']?></th>      
+                            <th><?php echo $fila['estado_civil']?></th>
+                            <?php $id_vivienda = $fila['id_vivienda'];
+                                $sql = "SELECT * FROM viviendas WHERE id='$id_vivienda'";
+                                $consulta_vivienda = pg_query($conexion,$sql);
+                                $vivienda = pg_fetch_array($consulta_vivienda);
+                            ?>   
                             <th> <a class="icons" href="../FormularioIngreso/formularioIngreso.php"><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
                             <th> <a class="icons" href="../FormularioEgreso/formularioEgreso.php"><i class="fa-solid fa-cash-register"></i></a></th>
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
+
+                        <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
             </section>
