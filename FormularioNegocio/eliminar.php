@@ -1,13 +1,13 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
-    $id = $_GET['id'];
+    $rfc = $_GET['rfc'];
 
-    $sql = "DELETE FROM public.viviendas WHERE id = '$id'";
+    $sql = "DELETE FROM public.negocios WHERE rfc = '$rfc'";
     $consulta = pg_query($conexion,$sql);
 
     if($consulta){
-        Header("Location: formularioVivienda.php");
+        Header("Location: formularioNegocio.php");
     }else{
         echo "Mamaste";
     }

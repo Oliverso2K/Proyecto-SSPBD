@@ -71,30 +71,30 @@
 
                 <text>Tipo de Negocio</text>
                 <select name="tipo" class="input" requeried>
-                    <option value="agrónomo">Agrónomo</option>
-                    <option value="automotriz">Automotriz</option>
-                    <option value="confitería">Confitería</option>
-                    <option value="comercio">Comercio</option>
-                    <option value="computación">Computación</option>
-                    <option value="farmacéutica">Farmacéutica</option>
-                    <option value="industrial">Industrial</option>
-                    <option value="manufactura">Manufactura</option>
-                    <option value="telecomunicaciones">Telecomunicaciones</option>
+                    <option value="Agrónomo">Agrónomo</option>
+                    <option value="Automotriz">Automotriz</option>
+                    <option value="Confitería">Confitería</option>
+                    <option value="Comercio">Comercio</option>
+                    <option value="Computación">Computación</option>
+                    <option value="Farmacéutica">Farmacéutica</option>
+                    <option value="Industrial">Industrial</option>
+                    <option value="Manufactura">Manufactura</option>
+                    <option value="Telecomunicaciones">Telecomunicaciones</option>
                 </select>
 
                 <text>Servicio que ofrece</text>
                 <select name="servicio" class="input" requeried>
-                    <option value="agua">Agua</option>
-                    <option value="arrendamiento">Arrendamiento</option>
-                    <option value="comestibles">Comestibles</option>
-                    <option value="comunicaciones">Comunicaciones</option>
-                    <option value="electricidad">Electricidad</option>
-                    <option value="entretenimiento">Entretenimiento</option>
-                    <option value="gas">Gas</option>
-                    <option value="mercancía">Mercancía</option>
-                    <option value="salud">Salud</option>
-                    <option value="transporte">Transporte</option>
-                    <option value="turismo">Turismo</option>
+                    <option value="Agua">Agua</option>
+                    <option value="Arrendamiento">Arrendamiento</option>
+                    <option value="Comestibles">Comestibles</option>
+                    <option value="Comunicaciones">Comunicaciones</option>
+                    <option value="Electricidad">Electricidad</option>
+                    <option value="Entretenimiento">Entretenimiento</option>
+                    <option value="Gas">Gas</option>
+                    <option value="Mercancía">Mercancía</option>
+                    <option value="Salud">Salud</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Turismo">Turismo</option>
                 </select>
                 <input type="number" name="año_apertura" min="1850" max="2022" placeholder="Año de apertura" class="input" required>
                 <text>Ubicación</text>
@@ -129,9 +129,8 @@
                     <!-- Para el encabezado de la tabla -->
                     <thead class="encabezados">
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
                             <th>RFC</th>
+                            <th>Nombre</th>
                             <th>Tipo</th>
                             <th>Servicio</th>
                             <th>No. Empleados</th>
@@ -144,20 +143,30 @@
 
                     <!-- Contenido de las filas -->
                     <tbody>
+                        <?php
+                                while ($fila = pg_fetch_array($consulta)){
+                        ?>
                         <tr>
-                            <th>1</th>
-                            <th>Papelería Yuem</th>
-                            <th>MELM8305281H0</th>
-                            <th>Comercio</th>
-                            <th>Mercancía</th>
-                            <th>2</th>
-                            <th>7000</th>
-                            <th>2010</th>
-                            <th>Tlajomulco</th>
+                            <th><?php echo $fila['rfc']?></th>
+                            <th><?php echo $fila['nombre']?></th>
+                            <th><?php echo $fila['tipo']?></th>
+                            <th><?php echo $fila['servicio']?></th>
+                            <th><?php echo $fila['no_empleados']?></th>
+                            <th><?php echo $fila['ingreso_mensual']?></th>
+                            <th><?php echo $fila['año_apertura']?></th>
+                            <?php $id_municipio = $fila['id_municipio'];
+                                $sql = "SELECT * FROM municipios WHERE id='$id_municipio'";
+                                $consulta_municipio = pg_query($conexion,$sql);
+                                $municipio = pg_fetch_array($consulta_municipio);
+                            ?>
+                            <th><?php echo $municipio['nombre']?></th>
+                            <th></th>
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
-                            <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
+                            <th> <a class="icons" href="eliminar.php?rfc=<?php echo $fila['rfc'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
-
+                        <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
             </section>
