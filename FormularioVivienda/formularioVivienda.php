@@ -1,6 +1,10 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
+    if(!isset($_POST['buscar'])){
+        $_POST['buscar'] = '';
+    }
+
 	$sql = "SELECT * FROM viviendas";
 	$consulta = pg_query($conexion,$sql);
 
@@ -87,11 +91,39 @@
             <h2>Registros de Viviendas </h2>
 
             <div class="buscar">
-                <input type="text" placeholder="Buscar por ID, dirección, colonia o municipio " requeried>
-                <div class="btnBuscar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+                <form action="formularioVivienda.php" method="POST">
+                    <input type="text" name="buscar" id="buscar" value="<?php echo $_POST["buscar"]?>" placeholder="Buscar por dirección" requeried>
+                    <input class="btnBuscar" type="submit" name="enviar" value="Buscar">
+                    <label><span class="fa-solid fa-magnifying-glass"></label>
+                    </input>
+                    <?php
+                        if($_POST['buscar'] == ''){
+                            $_POST['buscar'] = ' ';
+                        }
+                        $aKeyword = explode(" ", $_POST['buscar']);
+
+                        if($_POST["buscar"] == ''){
+                            $query = "SELECT * FROM viviendas";
+                        }else{
+                            $query = "SELECT * FROM viviendas";
+
+                            if($_POST["buscar"] != ''){
+                                $query .= " WHERE dirección LIKE '%".$aKeyword[0]."%'";
+
+                                for($i = 1; $i < count($aKeyword); $i++){
+                                    if(!empty($aKeyword[$i])){
+                                        $query .= "OR dirección LIKE '%".$aKeyword[$i]."%'"; 
+                                    }
+                                }
+                            }
+                            $query .= "ORDER BY id ASC";
+                        }
+
+                        $consulta = pg_query($conexion,$query);
+                    ?>
+                </form>
             </div>
+
             <section class="contTabla">
                 <table>
                     <!-- Para el encabezado de la tabla -->
@@ -122,9 +154,8 @@
                                 $consulta_municipio = pg_query($conexion,$sql);
                                 $municipio = pg_fetch_array($consulta_municipio);
                             ?>
-                            <th><?php echo $municipio['nombre']?></th>
+                            <th> <?php echo $municipio['nombre']?></th>
                             <th></th>
-                            <!-- <th> <a class="icons editbtn" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th> -->
                             <th> <a class="icons" href="actualizar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="integrantes.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-eye"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
