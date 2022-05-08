@@ -122,8 +122,8 @@
                                 $consulta_municipio = pg_query($conexion,$sql);
                                 $municipio = pg_fetch_array($consulta_municipio);
                             ?>
-                            <th> <?php echo $municipio['nombre']?></th>
-                            <th></ th>
+                            <th><?php echo $municipio['nombre']?></th>
+                            <th></th>
                             <!-- <th> <a class="icons editbtn" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th> -->
                             <th> <a class="icons" href="actualizar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="integrantes.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-eye"></i></a></th>

@@ -3,11 +3,11 @@
 
     $id = $_GET['id'];
 
-    $sql = "DELETE FROM public.viviendas WHERE id = '$id'";
+    $sql = "DELETE FROM public.personas WHERE id = '$id'";
     $consulta = pg_query($conexion,$sql);
 
     if($consulta){
-        Header("Location: formularioVivienda.php");
+        Header("Location: formularioPersona.php");
     }else{
         echo "Mamaste";
     }

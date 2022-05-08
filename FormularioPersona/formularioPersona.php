@@ -145,6 +145,7 @@
                                 $consulta_vivienda = pg_query($conexion,$sql);
                                 $vivienda = pg_fetch_array($consulta_vivienda);
                             ?>   
+                            <th><?php echo $vivienda['id']?></th>
                             <th> <a class="icons" href="../FormularioIngreso/formularioIngreso.php"><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
                             <th> <a class="icons" href="../FormularioEgreso/formularioEgreso.php"><i class="fa-solid fa-cash-register"></i></a></th>
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
