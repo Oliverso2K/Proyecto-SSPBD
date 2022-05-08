@@ -116,6 +116,7 @@
                                     }
                                 }
                             }
+                            $query .= "ORDER BY id ASC";
                         }
 
                         $consulta = pg_query($conexion,$query);
