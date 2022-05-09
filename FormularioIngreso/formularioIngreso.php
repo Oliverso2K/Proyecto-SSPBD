@@ -1,11 +1,16 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
-	$sql = "SELECT * FROM negocios";
+    $id_persona = $_GET['id'];
+
+	$sql = "SELECT * FROM ingresos WHERE id_persona='$id_persona'";
 	$consulta = pg_query($conexion,$sql);
 
-    $sql = "SELECT * FROM municipios";
+    $sql = "SELECT * FROM personas";
     $consulta2 = pg_query($conexion,$sql);
+
+    $sql = "SELECT * FROM fuentes";
+    $consulta3 = pg_query($conexion,$sql);
 ?>
 
 <!DOCTYPE html>
@@ -60,12 +65,19 @@
         <h5> Soy censador > Censar > Individuo > Ingresos</h1>
             <h2> CENSAR INGRESOS </h2>
     </div>
-    <text class="registroNombre"> Registros de Ingresos de MARIANA JOCELYN LÓPEZ QUIROZ </text>
+    
+    <?php 
+        $sql = "SELECT * FROM personas WHERE id='$id_persona'";
+        $consulta_persona = pg_query($conexion,$sql);
+        $persona = pg_fetch_array($consulta_persona);
+    ?>   
+
+    <text class="registroNombre"> Registros de Ingresos de <?php echo $persona['nombres']?> <?php echo $persona['apellidos']?></text>
 
     <div class="contenedor">
         <section class="contFormulario">
             <h2>Agregar Ingreso </h2>
-            <form action="insertar.php" method="POST">
+            <form action="insertar.php?id=<?php echo $persona['id'] ?>" method="POST">
                 <input type="number" name="cantidad" min="1" placeholder="Cantidad" class="input" required>
                 <text>Fecha del ingreso</text>
                 <input type="date" name="fecha" class="input" required>
@@ -95,24 +107,35 @@
                         <tr>
                             <th>ID</th>
                             <th>Cantidad</th>
-                            <th>Fuente</th>
                             <th>Fecha</th>
-                            <th></th><th></th><th></th>
+                            <th>Fuente</th>
+                            <th></th><th></th><th></th><th></th>
                         </tr>
                     </thead>
 
                     <!-- Contenido de las filas -->
                     <tbody>
+                        <?php
+                            while ($fila = pg_fetch_array($consulta)){
+                        ?>   
                         <tr>
-                            <th>1</th>
-                            <th>2000</th>
-                            <th>Empleo</th>
-                            <th>30-04-2022</th>
+                            <th><?php echo $fila['id']?></th>
+                            <th><?php echo $fila['cantidad']?></th>
+                            <th><?php echo $fila['fecha']?></th>
+                            <?php $id_fuente = $fila['id_fuente'];
+                                $sql = "SELECT * FROM fuentes WHERE id='$id_fuente'";
+                                $consulta_fuente = pg_query($conexion,$sql);
+                                $fuente = pg_fetch_array($consulta_fuente);
+                            ?> 
+                            <th><?php echo $fuente['tipo']?></th>
+                            <th></th>
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-circle-question"></i></a></th>
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
-
+                        <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
             </section>

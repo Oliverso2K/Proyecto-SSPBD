@@ -142,9 +142,9 @@
 
                     <!-- Contenido de las filas -->
                     <tbody>
-                            <?php
-                                while ($fila = pg_fetch_array($consulta)){
-                            ?>
+                        <?php
+                            while ($fila = pg_fetch_array($consulta)){
+                        ?>
                         <tr>
                             <th><?php echo $fila['id']?></th>
                             <th><?php echo $fila['dirección']?></th>

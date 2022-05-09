@@ -1,15 +1,25 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
-    $direccion = $_POST['dirección'];
-    $colonia = $_POST['colonia'];
-    $municipio = $_POST['id_municipio'];
+    $id_persona = $_GET['id'];
+    $cantidad = $_POST['cantidad'];
+    $fecha = $_POST['fecha'];
 
-    $sql = "INSERT INTO public.viviendas(dirección, colonia, id_municipio) VALUES ('$direccion', '$colonia', '$municipio')";
+    $razon_social = $_POST['razon_social'];
+    $tipo = $_POST['tipo'];
+
+    $sql = "INSERT INTO public.fuentes(razon_social, tipo) VALUES ('$razon_social', '$tipo') RETURNING id";
+    $consulta = pg_query($conexion,$sql);
+
+    $fuente = pg_fetch_row($consulta);
+
+    $id_fuente = $fuente['0'];
+
+    $sql = "INSERT INTO public.ingresos(id_fuente, id_persona, cantidad, fecha) VALUES ('$id_fuente','$id_persona','$cantidad','$fecha')";
     $consulta = pg_query($conexion,$sql);
 
     if($consulta){
-        Header("Location: formularioVivienda.php");
+        Header("Location: formularioIngreso.php?id=$id_persona");
     }else{
         echo "Mamaste";
     }
