@@ -95,7 +95,7 @@
 
         <section class="tabla">
             <div class="buscar">
-                <input type="text" placeholder="Buscar por ID de ingreso, fecha o tipo de fuente" requeried>
+                <input type="text" placeholder="Buscar por fecha" requeried>
                 <div class="btnBuscar">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>

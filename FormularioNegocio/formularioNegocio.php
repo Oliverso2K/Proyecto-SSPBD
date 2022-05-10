@@ -4,7 +4,7 @@
 	$sql = "SELECT * FROM negocios";
 	$consulta = pg_query($conexion,$sql);
 
-    $sql = "SELECT * FROM municipios";
+    $sql = "SELECT * FROM municipios ORDER BY nombre ASC";
     $consulta2 = pg_query($conexion,$sql);
 ?>
 
@@ -119,7 +119,7 @@
             <h2>Registros de Negocios </h2>
 
             <div class="buscar">
-                <input type="text" placeholder="Buscar por ID de negocio, RFC o nombre" requeried>
+                <input type="text" placeholder="Buscar por nombre" requeried>
                 <div class="btnBuscar">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>

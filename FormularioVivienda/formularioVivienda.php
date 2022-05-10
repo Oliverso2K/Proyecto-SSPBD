@@ -8,7 +8,7 @@
 	$sql = "SELECT * FROM viviendas";
 	$consulta = pg_query($conexion,$sql);
 
-    $sql = "SELECT * FROM municipios";
+    $sql = "SELECT * FROM municipios ORDER BY nombre ASC";
     $consulta2 = pg_query($conexion,$sql);
 ?>
 

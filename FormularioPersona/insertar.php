@@ -9,7 +9,7 @@
     $estado_civil = $_POST['estado_civil'];
     $vivienda = $_POST['id_vivienda'];
 
-    $sql = "INSERT INTO public.personas(curp, nombres, estado_civil, genero, id_vivienda, apellidos, fecha_nacimiento) VALUES ('$curp', '$nombres', '$estado_civil', '$genero', '$vivienda', '$apellidos', '$fecha_nacimiento')";
+    $sql = "INSERT INTO public.personas(curp, nombres, estado_civil,genero,id_vivienda, apellidos, fecha_nacimiento)VALUES ('$curp', '$nombres', '$estado_civil', '$genero', '$vivienda', '$apellidos', '$fecha_nacimiento')";
     $consulta = pg_query($conexion,$sql);
 
     if($consulta){

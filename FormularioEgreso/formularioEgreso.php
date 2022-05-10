@@ -90,7 +90,7 @@
 
         <section class="tabla">
             <div class="buscar">
-                <input type="text" placeholder="Buscar por ID de egreso, fecha o tipo de servicio" requeried>
+                <input type="text" placeholder="Buscar por tipo de servicio" requeried>
                 <div class="btnBuscar">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
