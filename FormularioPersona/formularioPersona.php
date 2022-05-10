@@ -4,9 +4,6 @@
 	$sql = "SELECT * FROM personas";
 	$consulta = pg_query($conexion,$sql);
 
-    // Creo que la consulta2 no es necesaria para este formulario
-    $sql = "SELECT * FROM municipios";
-    $consulta2 = pg_query($conexion,$sql);
 ?>
 
 <!DOCTYPE html>
@@ -82,8 +79,8 @@
 
                 <text>Estado Civil</text>
                 <select name="estado_civil" class="input" requeried>
-                    <option value="S">Soltero</option>
                     <option value="C">Casado</option>
+                    <option value="S">Soltero</option>
                     <option value="U">Unión Libre</option>
                     <option value="V">Viudo</option>
 
@@ -100,7 +97,7 @@
             <h2>Registros de Individuos </h2>
 
             <div class="buscar">
-                <input type="text" placeholder="Buscar por ID del individuo, nombre o CURP" requeried>
+                <input type="text" placeholder="Buscar por nombre" requeried>
                 <div class="btnBuscar">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
@@ -140,16 +137,23 @@
                             <th><?php echo $fila['genero']?></th>
                             <th><?php echo $fila['fecha_nacimiento']?></th>      
                             <th><?php echo $fila['estado_civil']?></th>
-                            <?php $id_vivienda = $fila['id_vivienda'];
+                            <th><?php echo $fila['id_vivienda']?></th>
+                            <!-- <?php $id_vivienda = $fila['id_vivienda'];
                                 $sql = "SELECT * FROM viviendas WHERE id='$id_vivienda'";
                                 $consulta_vivienda = pg_query($conexion,$sql);
                                 $vivienda = pg_fetch_array($consulta_vivienda);
+<<<<<<< Updated upstream
                             ?>   
                             <th><?php echo $vivienda['id']?></th>
                             <th> <a class="icons" href="../FormularioIngreso/formularioIngreso.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
                             <th> <a class="icons" href="../FormularioEgreso/formularioEgreso.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-cash-register"></i></a></th>
+=======
+                            ?>    -->
+                            <th> <a class="icons" href="../FormularioIngreso/formularioIngreso.php"><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
+                            <th> <a class="icons" href="../FormularioEgreso/formularioEgreso.php"><i class="fa-solid fa-cash-register"></i></a></th>
+>>>>>>> Stashed changes
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
-                            <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
+                            <th> <a class="icons" href="eliminar.php?id=<?php echo$fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
 
                         <?php
@@ -172,32 +176,6 @@
             </div>
         </div>
     </footer>
-
-    <div class="overlay" id="overlay">
-        <div class="popup" id="popup">
-            <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"> <i class="fas fa-times"> </i> </a>
-            <h3>Editar registro</h3>
-            
-            <form action="">
-                <div class="contInputs">
-                    <input type="text" placeholder="Dirección">
-                    <input type="text" placeholder="Colonia">
-                    <select name="id_municipio" class="input">
-                        <!-- <?php
-                            while ($filaMunicipio = pg_fetch_array($consulta2)){
-                        ?>
-                        <option value="<?php echo $filaMunicipio['id']?>"> <?php echo $filaMunicipio['nombre']?> </option>
-                        <?php
-                            }
-                        ?> -->
-                    </select>
-                </div>
-                <input type="submit" class="btn-submit" value="Actualizar">
-            </form>
-        </div>
-    </div>
-
-    <script src="popup.js"></script>
 
 </body>
 
