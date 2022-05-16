@@ -93,12 +93,11 @@
 
         <div class="contenedorDescripcion">
             <section class="descripcion">
-                <Text>¿Quiénes somos?</Text>
-                <p>si</p>
-            </section>
-            <section class="descripcion">
                 <Text>¿Qué funciones puede realizar?</Text>
-                <p>Consultar los ingresos y gastos que se realizan dentro de las comunidades de Jalisco.</p>
+                <br></br>
+                <p>La consulta abierta de datos relacionados con los ingresos y gastos de las familias, individuos y negocios en Jalisco.</p>
+                <br></br>
+                <p>Ofrecemos información pertinente sobre las transacciones y las características de sus emisores que han sido censadas en nuestro sistema.</p>
             </section>
         </div>
     </div>
