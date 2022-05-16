@@ -100,9 +100,12 @@
                     </tbody>
                 </table>
             </section>
-            <button class="botonRegistrar">
-                <a href="../FormularioVivienda/formularioVivienda.php"> Regresar </a>
-            </button>
+
+            <section class='regresar'>
+                <button class="botonRegistrar">
+                    <a href="../FormularioVivienda/formularioVivienda.php"> Regresar </a>
+                </button>
+            </section>
         </section>
     </div>
 

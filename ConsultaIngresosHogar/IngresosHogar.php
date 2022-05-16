@@ -108,7 +108,7 @@
                                 ?>
                             </th>
 
-                            <th>
+                            <th>$
                                 <?php
                                 echo $ingreso
                                 ?>

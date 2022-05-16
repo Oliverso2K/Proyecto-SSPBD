@@ -109,7 +109,7 @@
                                 ?>
                             </th>
 
-                            <th>
+                            <th>$
                                 <?php
                                 echo $gasto
                                 ?>

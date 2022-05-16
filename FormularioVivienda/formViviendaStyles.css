@@ -207,6 +207,10 @@ footer{
     cursor: pointer;
 }
 
+.regresar{
+    display: flex;
+    margin-top: 40px;
+}
 
 /* ~~~~~ Estilos de la tabla ~~~~~ */
 
