@@ -1,11 +1,18 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
-	$sql = "SELECT * FROM viviendas ORDER BY id ASC";
-	$consultaViviendas = pg_query($conexion,$sql);
-
-    $sql = "SELECT * FROM personas";
+	$sql = "SELECT * FROM personas ORDER BY id ASC";
 	$consultaPersonas = pg_query($conexion,$sql);
+
+    function calculaedad($fechanacimiento){
+        list($ano,$mes,$dia) = explode("-",$fechanacimiento);
+        $ano_diferencia  = date("Y") - $ano;
+        $mes_diferencia = date("m") - $mes;
+        $dia_diferencia   = date("d") - $dia;
+        if ($dia_diferencia < 0 || $mes_diferencia < 0)
+          $ano_diferencia--;
+        return $ano_diferencia;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +21,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="ingresosHogarStyle.css">
-    <title>Ingresos por Hogar</title>
+    <link rel="stylesheet" href="gastosTransaccionStyle.css">
+    <title>Gastos Individuales por Transacción</title>
 </head>
 
 <body>
@@ -54,8 +61,8 @@
     </header>
 
     <div class="titulo-ventana">
-        <h5> Consulta por Hogar > Ingresos por Hogar </h5>
-            <h2> INGRESOS POR HOGAR </h2>
+        <h5> Consulta Individual > Gastos individuales por transacción </h5>
+            <h2> GASTOS INDIVIDUALES POR TRANSACCIÓN </h2>
     </div>
     
     <div class="contenedor">
@@ -66,54 +73,67 @@
                     <!-- Para el encabezado de la tabla -->
                     <thead class="encabezados">
                         <tr>
+                            <th>Edad</th>
+                            <th>Género</th>
+                            <th>Estado Civil</th>
                             <th>Municipio</th>
-                            <th>No. Integrantes</th>
-                            <th>Ingreso mensual</th>
+                            <th>Tipo de Servicio</th>
+                            <th>Propietario de Negocio</th>
+                            <th>Gasto</th>
                         </tr>
                     </thead>
 
                     <!-- Contenido de las filas -->
                     <tbody>
                     <?php
-                            while ($fila = pg_fetch_array($consultaViviendas)){
-                                $ingreso = 0;
-                                $id = $fila['id'];
-                                $sql = "SELECT * FROM personas WHERE id_vivienda='$id'";
+                        while ($fila = pg_fetch_array($consultaPersonas)){
 
-                                $familiares = pg_query($conexion,$sql);
-                                
-                                while($fila_familiar = pg_fetch_array($familiares)){
-                                    $id_familiar = $fila_familiar['id'];
+                            $id_vivienda = $fila['id_vivienda'];
+                            $sql = "SELECT * FROM viviendas WHERE id='$id_vivienda'";
+                            $consulta_vivienda = pg_query($conexion,$sql);
+                            $vivienda = pg_fetch_array($consulta_vivienda);
 
-                                    $sql = "SELECT cantidad FROM ingresos WHERE id_persona='$id_familiar'";
-                                    $cantidad = pg_query($conexion,$sql);
+                            $id_municipio = $vivienda['id_municipio'];
+                            $sql = "SELECT * FROM municipios WHERE id='$id_municipio'";
+                            $consulta_municipio = pg_query($conexion,$sql);
+                            $municipio = pg_fetch_array($consulta_municipio);
 
-                                    while($ingreso_indv = pg_fetch_array($cantidad)){
-                                        $ingreso += intval($ingreso_indv['cantidad']);
-                                    }
-                                }
+                            $id_persona = $fila['id'];
+
+                            $sql = "SELECT * FROM gastos WHERE id_persona='$id_persona'";
+                            $gasto = pg_query($conexion,$sql);
+                            
+                            $sql = "SELECT * FROM propietarios WHERE id_persona='$id_persona'";
+                            $propietario = pg_query($conexion,$sql);
+
+                            if(pg_num_rows($propietario) > 0){
+                                $es_propietario = 'Sí';
+                            }else{
+                                $es_propietario = 'No';
+                            }
+
+                            switch($fila['estado_civil']){
+                                case 'S': $edoCivil = 'Soltero'; break;
+                                case 'C': $edoCivil = 'Casado'; break;
+                                case 'U': $edoCivil = 'Unión Libre'; break;
+                                case 'V': $edoCivil = 'Viudo'; break;
+                            }
                         ?>
+                        <?php while($gasto_indv = pg_fetch_array($gasto)){?>
                         <tr>
-                            <?php $id_municipio = $fila['id_municipio'];
-                                $sql = "SELECT * FROM municipios WHERE id='$id_municipio'";
-                                $consulta_municipio = pg_query($conexion,$sql);
-                                $municipio = pg_fetch_array($consulta_municipio);
-                            ?>
+                            <th> <?php echo calculaedad($fila['fecha_nacimiento'])?></th>
+                            <th> <?php echo $fila['genero']?></th>
+                            <th> <?php echo $edoCivil?></th>
                             <th> <?php echo $municipio['nombre']?></th>
-
+                            <th> <?php echo $gasto_indv['servicio']?></th>
                             <th>
                                 <?php
-                                $rows = pg_num_rows($familiares);
-                                echo $rows
+                                echo $es_propietario
                                 ?>
                             </th>
-
-                            <th>$
-                                <?php
-                                echo $ingreso
-                                ?>
-                            </th>
+                            <th>$<?php echo $gasto_indv['cantidad']?></th>
                         </tr>
+                        <?php }?>
 
                         <?php
                             }

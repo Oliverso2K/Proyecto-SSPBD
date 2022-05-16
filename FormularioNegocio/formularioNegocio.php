@@ -32,30 +32,30 @@
             <h2 class="nombre-sicoja"> SISTEMA DE CONSULTA DE INGRESOS Y GASTOS EN LOS HOGARES DE JALISCO </h2>
         </div>
         <ul class="menu">
-            <li><a href="" class="">Inicio</a></li>
+            <li><a href="../Home/home.php" class="">Inicio</a></li>
             <li><a href="" class="">Consulta Individual</a>
                 <ul>
                     <li><a href="" class="">Ingresos</a>
                         <ul>
-                            <li><a href="" class="">Totales</a></li>
-                            <li><a href="" class="">Por transacción</a></li>
+                            <li><a href="../IngresosTotales/ingresosTotales.php" class="">Totales</a></li>
+                            <li><a href="../IngresosTransaccion/ingresosTransaccion.php" class="">Por transacción</a></li>
                         </ul>
                     </li>
                     <li><a href="" class="">Gastos</a>
                         <ul>
-                            <li><a href="" class="">Totales</a></li>
-                            <li><a href="" class="">Por transacción</a></li>
+                            <li><a href="../GastosTotales/gastosTotales.php" class="">Totales</a></li>
+                            <li><a href="../GastosTransaccion/gastosTransaccion.php" class="">Por transacción</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li><a href="" class="">Consulta por Hogar</a>
                 <ul>
-                    <li><a href="" class="">Ingresos</a></li> 
-                    <li><a href="" class="">Gastos</a></li> 
+                    <li><a href="../ConsultaIngresosHogar/ingresosHogar.php" class="">Ingresos</a></li> 
+                    <li><a href="../ConsultaEgresosHogar/egresosHogar.php" class="">Gastos</a></li> 
                 </ul>
             </li>
-            <li><a href="" class="">Negocios</a></li>
+            <li><a href="../ConsultaNegocios/consultaNegocios.php" class="">Negocios</a></li>
             <li><a href="../VentanaCensador/censar.php" class="">Soy censador</a></li>
         </ul>
     </header>
