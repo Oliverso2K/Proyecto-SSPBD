@@ -81,7 +81,7 @@
                             <th><?php echo $fila['tipo']?></th>
                             <th><?php echo $fila['no_empleados']?></th>
                             <th><?php echo $fila['servicio']?></th>
-                            <th><?php echo $fila['ingreso_mensual']?></th>
+                            <th>$<?php echo $fila['ingreso_mensual']?></th>
                         </tr>
 
                         <?php
