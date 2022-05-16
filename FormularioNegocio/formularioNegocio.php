@@ -1,6 +1,10 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
+    if(!isset($_POST['buscar'])){
+        $_POST['buscar'] = '';
+    }
+
 	$sql = "SELECT * FROM negocios";
 	$consulta = pg_query($conexion,$sql);
 
@@ -119,10 +123,37 @@
             <h2>Registros de Negocios </h2>
 
             <div class="buscar">
-                <input type="text" placeholder="Buscar por nombre" requeried>
-                <div class="btnBuscar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+            <form action="formularioNegocio.php" method="POST">
+                    <input type="text" name="buscar" id="buscar" value="<?php echo $_POST["buscar"]?>" placeholder="Buscar por nombre" requeried>
+                    <input class="btnBuscar" type="submit" name="enviar" value="Buscar">
+                    <label><span class="fa-solid fa-magnifying-glass"></label>
+                    </input>
+                    <?php
+                        if($_POST['buscar'] == ''){
+                            $_POST['buscar'] = ' ';
+                        }
+                        $aKeyword = explode(" ", $_POST['buscar']);
+
+                        if($_POST["buscar"] == ''){
+                            $query = "SELECT * FROM negocios";
+                        }else{
+                            $query = "SELECT * FROM negocios";
+
+                            if($_POST["buscar"] != ''){
+                                $query .= " WHERE nombre LIKE '%".$aKeyword[0]."%'";
+
+                                for($i = 1; $i < count($aKeyword); $i++){
+                                    if(!empty($aKeyword[$i])){
+                                        $query .= "OR nombre LIKE '%".$aKeyword[$i]."%'"; 
+                                    }
+                                }
+                            }
+                            $query .= "ORDER BY RFC ASC";
+                        }
+
+                        $consulta = pg_query($conexion,$query);
+                    ?>
+                </form>
             </div>
             <section class="contTabla">
                 <table>
@@ -137,7 +168,7 @@
                             <th>Ingreso mensual</th>
                             <th>Apertura</th>
                             <th>Municipio</th>
-                            <th></th><th></th>
+                            <th></th><th></th><th></th>
                         </tr>
                     </thead>
 
@@ -161,7 +192,7 @@
                             ?>
                             <th><?php echo $municipio['nombre']?></th>
                             <th></th>
-                            <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
+                            <th> <a class="icons" href="#" id=''><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?rfc=<?php echo $fila['rfc'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
                         <?php
@@ -184,32 +215,6 @@
             </div>
         </div>
     </footer>
-
-    <div class="overlay" id="overlay">
-        <div class="popup" id="popup">
-            <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"> <i class="fas fa-times"> </i> </a>
-            <h3>Editar registro</h3>
-            
-            <form action="">
-                <div class="contInputs">
-                    <input type="text" placeholder="Dirección">
-                    <input type="text" placeholder="Colonia">
-                    <select name="id_municipio" class="input">
-                        <!-- <?php
-                            while ($filaMunicipio = pg_fetch_array($consulta2)){
-                        ?>
-                        <option value="<?php echo $filaMunicipio['id']?>"> <?php echo $filaMunicipio['nombre']?> </option>
-                        <?php
-                            }
-                        ?> -->
-                    </select>
-                </div>
-                <input type="submit" class="btn-submit" value="Actualizar">
-            </form>
-        </div>
-    </div>
-
-    <script src="popup.js"></script>
 
 </body>
 

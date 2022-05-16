@@ -1,6 +1,10 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
+    if(!isset($_POST['buscar'])){
+        $_POST['buscar'] = '';
+    }
+
 	$sql = "SELECT * FROM personas";
 	$consulta = pg_query($conexion,$sql);
 
@@ -97,10 +101,41 @@
             <h2>Registros de Individuos </h2>
 
             <div class="buscar">
-                <input type="text" placeholder="Buscar por nombre" requeried>
+                <!-- <input type="text" placeholder="Buscar por nombre" requeried>
                 <div class="btnBuscar">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+                </div> -->
+                <form action="formularioPersona.php" method="POST">
+                    <input type="text" name="buscar" id="buscar" value="<?php echo $_POST["buscar"]?>" placeholder="Buscar por nombre" requeried>
+                    <input class="btnBuscar" type="submit" name="enviar" value="Buscar">
+                    <label><span class="fa-solid fa-magnifying-glass"></label>
+                    </input>
+                    <?php
+                        if($_POST['buscar'] == ''){
+                            $_POST['buscar'] = ' ';
+                        }
+                        $aKeyword = explode(" ", $_POST['buscar']);
+
+                        if($_POST["buscar"] == ''){
+                            $query = "SELECT * FROM personas";
+                        }else{
+                            $query = "SELECT * FROM personas";
+
+                            if($_POST["buscar"] != ''){
+                                $query .= " WHERE nombres LIKE '%".$aKeyword[0]."%'";
+
+                                for($i = 1; $i < count($aKeyword); $i++){
+                                    if(!empty($aKeyword[$i])){
+                                        $query .= "OR nombres LIKE '%".$aKeyword[$i]."%'"; 
+                                    }
+                                }
+                            }
+                            $query .= "ORDER BY id ASC";
+                        }
+
+                        $consulta = pg_query($conexion,$query);
+                    ?>
+                </form>
             </div>
 
             <section class="contTabla">
@@ -142,16 +177,9 @@
                                 $sql = "SELECT * FROM viviendas WHERE id='$id_vivienda'";
                                 $consulta_vivienda = pg_query($conexion,$sql);
                                 $vivienda = pg_fetch_array($consulta_vivienda);
-<<<<<<< Updated upstream
-                            ?>   
-                            <th><?php echo $vivienda['id']?></th>
-                            <th> <a class="icons" href="../FormularioIngreso/formularioIngreso.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
-                            <th> <a class="icons" href="../FormularioEgreso/formularioEgreso.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-cash-register"></i></a></th>
-=======
                             ?>    -->
                             <th> <a class="icons" href="../FormularioIngreso/formularioIngreso.php"><i class="fa-solid fa-hand-holding-dollar"></i></a></th>
                             <th> <a class="icons" href="../FormularioEgreso/formularioEgreso.php"><i class="fa-solid fa-cash-register"></i></a></th>
->>>>>>> Stashed changes
                             <th> <a class="icons" href="#" id='btn-abrir-popup'><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo$fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
