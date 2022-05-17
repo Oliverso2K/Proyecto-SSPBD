@@ -168,7 +168,7 @@
                             <th>Ingreso mensual</th>
                             <th>Apertura</th>
                             <th>Municipio</th>
-                            <th></th><th></th><th></th>
+                            <th></th><th></th><th></th><th></th>
                         </tr>
                     </thead>
 
@@ -192,8 +192,9 @@
                             ?>
                             <th><?php echo $municipio['nombre']?></th>
                             <th></th>
-                            <th> <a class="icons" href="#" id=''><i class="fa-solid fa-pencil"></i></a></th>
+                            <th> <a class="icons" href="actualizar.php?rfc=<?php echo $fila['rfc'] ?>" id=''><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?rfc=<?php echo $fila['rfc'] ?>"><i class="fa-solid fa-trash"></i></a></th>
+                            <th> <a class="icons" href="propietario.php?rfc=<?php echo $fila['rfc'] ?>"><i class="fa-solid fa-person-circle-plus"></i></a></th>
                         </tr>
                         <?php
                             }

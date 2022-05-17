@@ -5,6 +5,16 @@
 
     $sql = "SELECT * FROM personas WHERE id_vivienda ='$id_vivienda'";
     $consulta = pg_query($conexion,$sql);
+
+    function calculaedad($fechanacimiento){
+        list($ano,$mes,$dia) = explode("-",$fechanacimiento);
+        $ano_diferencia  = date("Y") - $ano;
+        $mes_diferencia = date("m") - $mes;
+        $dia_diferencia   = date("d") - $dia;
+        if ($dia_diferencia < 0 || $mes_diferencia < 0)
+          $ano_diferencia--;
+        return $ano_diferencia;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +93,12 @@
                     <tbody>
                             <?php
                                 while ($fila = pg_fetch_array($consulta)){
+                                    switch($fila['estado_civil']){
+                                        case 'S': $edoCivil = 'Soltero'; break;
+                                        case 'C': $edoCivil = 'Casado'; break;
+                                        case 'U': $edoCivil = 'Unión Libre'; break;
+                                        case 'V': $edoCivil = 'Viudo'; break;
+                                    }
                             ?>
                         <tr>
                             <th><?php echo $fila['id']?></th>
@@ -90,8 +106,8 @@
                             <th><?php echo $fila['nombres']?></th>
                             <th><?php echo $fila['apellidos']?></th>
                             <th><?php echo $fila['genero']?></th>
-                            <th><?php echo $fila['fecha_nacimiento']?></th>
-                            <th><?php echo $fila['estado_civil']?></th>
+                            <th> <?php echo calculaedad($fila['fecha_nacimiento'])?></th>
+                            <th> <?php echo $edoCivil?></th>
                             <th></th>
                         </tr>
                         <?php
