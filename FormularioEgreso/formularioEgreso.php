@@ -1,11 +1,10 @@
 <?php
     $conexion = pg_connect("host=localhost dbname=SICOJA user=postgres password=password");
 
-	$sql = "SELECT * FROM negocios";
-	$consulta = pg_query($conexion,$sql);
+    $id_persona = $_GET['id'];
 
-    $sql = "SELECT * FROM municipios";
-    $consulta2 = pg_query($conexion,$sql);
+	$sql = "SELECT * FROM gastos WHERE id_persona='$id_persona'";
+	$consulta = pg_query($conexion,$sql);
 ?>
 
 <!DOCTYPE html>
@@ -60,12 +59,19 @@
         <h5> Soy censador > Censar > Individuo > Egresos</h1>
             <h2> CENSAR EGRESOS </h2>
     </div>
-    <text class="registroNombre"> Registros de Egresos de MARIANA JOCELYN LÓPEZ QUIROZ </text>
+    
+    <?php 
+        $sql = "SELECT * FROM personas WHERE id='$id_persona'";
+        $consulta_persona = pg_query($conexion,$sql);
+        $persona = pg_fetch_array($consulta_persona);
+    ?>   
+
+    <text class="registroNombre"> Registros de Egresos de <?php echo $persona['nombres']?> <?php echo $persona['apellidos']?></text>
 
     <div class="contenedor">
         <section class="contFormulario">
             <h2>Agregar Egreso </h2>
-            <form action="insertar.php" method="POST">
+            <form action="insertar.php?id=<?php echo $persona['id'] ?>" method="POST">
                 <input type="number" name="cantidad" min="1" placeholder="Cantidad" class="input" required>
                 <text>Servicio en el que se empleó</text>
                 <select name="servicio" class="input" requeried>
@@ -110,15 +116,20 @@
 
                     <!-- Contenido de las filas -->
                     <tbody>
+                        <?php
+                            while ($fila = pg_fetch_array($consulta)){
+                        ?> 
                         <tr>
-                            <th>1</th>
-                            <th>1500</th>
-                            <th>Transporte</th>
-                            <th>30-04-2022</th>
+                            <th><?php echo $fila['id']?></th>
+                            <th><?php echo $fila['cantidad']?></th>
+                            <th><?php echo $fila['servicio']?></th>
+                            <th><?php echo $fila['fecha']?></th>
                             <th> <a class="icons" href="#" id=''><i class="fa-solid fa-pencil"></i></a></th>
                             <th> <a class="icons" href="eliminar.php?id=<?php echo $fila['id'] ?>"><i class="fa-solid fa-trash"></i></a></th>
                         </tr>
-
+                        <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
             </section>
